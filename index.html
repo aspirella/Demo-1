@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X2-iDoc | Engineering Operations & Technical Publications</title>
+    
+    <!-- Google Fonts for crisp product typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23633394%22/><text y=%22.9em%22 font-size=%2265%22 fill=%22white%22 font-weight=%22bold%22 font-family=%22sans-serif%22 x=%2215%22>X²</text></svg>">
+
+    <style>
+        /* DESIGN SYSTEM - LIGHT, PRECISION ENGINEERING SOFTWARE STYLE */
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-tertiary: #EEF2F7;
+            --border-color: #E2E8F0;
+            --border-accent: #CBD5E1;
+            
+            --primary-purple: #633394;
+            --primary-purple-hover: #52277C;
+            --lavender-light: #F3EEFA;
+            
+            --text-lead: #0F172A;
+            --text-body: #334155;
+            --text-muted: #64748B;
+            --text-white: #FFFFFF;
+            
+            --green-check: #16A34A;
+            --red-cross: #DC2626;
+            
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-sans: 'Inter', sans-serif;
+            --max-width: 1040px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-body);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Technical grid background */
+        .grid-backdrop {
+            background-image: 
+                linear-gradient(var(--border-color) 0.5px, transparent 0.5px),
+                linear-gradient(90deg, var(--border-color) 0.5px, transparent 0.5px);
+            background-size: 30px 30px;
+        }
+
+        /* HEADER NAVIGATION */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 1000;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary-purple);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-family: var(--font-display);
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-lead);
+            font-family: var(--font-display);
+            letter-spacing: -0.5px;
+        }
+
+        .header-cta {
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .header-cta:hover {
+            background-color: var(--primary-purple-hover);
+        }
+
+        /* LAYOUT SPACING */
+        section {
+            padding: 100px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-wrapper {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* SECTION 1: HERO */
+        .hero-section {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-secondary);
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .hero-headline {
+            font-family: var(--font-display);
+            font-size: 3.4rem;
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--text-lead);
+        }
+
+        .hero-subheadline {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--text-body);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(99, 51, 148, 0.15);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-purple-hover);
+            box-shadow: 0 4px 12px rgba(99, 51, 148, 0.25);
+        }
+
+        /* Simulated Video Backdrop Grid Visual */
+        .video-collage {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            height: 340px;
+        }
+
+        .collage-tile {
+            border: 1px solid var(--border-accent);
+            background-color: var(--bg-tertiary);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .collage-tile svg {
+            width: 50%;
+            height: 50%;
+            stroke: var(--text-muted);
+            stroke-width: 1;
+            fill: none;
+        }
+
+        .collage-label {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            font-family: monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            background-color: var(--bg-primary);
+            padding: 2px 6px;
+            border-radius: 2px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* SECTION 2: THE PROBLEM */
+        .problem-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .comparison-table {
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-panel);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .table-label {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-lead);
+        }
+
+        .table-row.col-title {
+            background-color: var(--bg-tertiary);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        .icon-check { color: var(--green-check); font-weight: bold; }
+        .icon-cross { color: var(--red-cross); font-weight: bold; }
+
+        /* SECTION 3: INDUSTRY */
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-lead);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .industry-card {
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-panel);
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .industry-card:hover {
+            border-color: var(--primary-purple);
+            background-color: var(--lavender-light);
+        }
+
+        .industry-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            background-color: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .industry-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-lead);
+        }
+
+        /* SECTION 4: LEARNING JOURNEY */
+        .roadmap-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin-top: 60px;
+        }
+
+        .roadmap-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--border-color);
+            z-index: 1;
+        }
+
+        .roadmap-node {
+            background-color: var(--bg-primary);
+            padding: 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            z-index: 2;
+        }
+
+        .node-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--border-accent);
+            background-color: var(--bg-primary);
+        }
+
+        .roadmap-node.active .node-dot {
+            border-color: var(--primary-purple);
+            background-color: var(--primary-purple);
+        }
+
+        .node-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .roadmap-node.active .node-label {
+            color: var(--primary-purple);
+            font-weight: 700;
+        }
+
+        /* SECTION 5: PLATFORM DEMO */
+        .demo-desk {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: var(--bg-primary);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.03);
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            height: 480px;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+
+        .demo-sidebar {
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .demo-canvas {
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .demo-canvas::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--border-color) 0.5px, transparent 0.5px),
+                linear-gradient(90deg, var(--border-color) 0.5px, transparent 0.5px);
+            background-size: 20px 20px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .active-flow {
+            stroke: var(--primary-purple);
+            stroke-width: 3;
+            stroke-dasharray: 6 3;
+            animation: flow-dash 1.5s linear infinite;
+        }
+
+        .error-flow {
+            stroke: var(--red-cross);
+            stroke-width: 3;
+            stroke-dasharray: 6 3;
+            animation: flow-dash 0.8s linear infinite;
+        }
+
+        .manual-step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .manual-step {
+            display: flex;
+            gap: 10px;
+            font-size: 0.85rem;
+            opacity: 0.5;
+            transition: opacity 0.2s ease;
+        }
+
+        .manual-step.active {
+            opacity: 1;
+            font-weight: 600;
+        }
+
+        .manual-step.completed {
+            opacity: 0.8;
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .step-num {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1px solid var(--border-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        .manual-step.completed .step-num {
+            background-color: var(--primary-purple);
+            border-color: var(--primary-purple);
+            color: white;
+        }
+
+        .demo-success {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(255,255,255,0.96);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .demo-success.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* SECTION 6: WHY X2-IDOC */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .why-card {
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-panel);
+            border-radius: 8px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .why-emoji {
+            font-size: 2rem;
+        }
+
+        .why-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-lead);
+        }
+
+        .why-desc {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-body);
+        }
+
+        /* SECTION 7: CTA */
+        .cta-section {
+            background-color: var(--bg-secondary);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes flow-dash {
+            to { stroke-dashoffset: -20; }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 20px;
+            }
+            .hero-content, .problem-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            .hero-headline {
+                font-size: 2.2rem;
+            }
+            .btn-primary {
+                align-self: center;
+            }
+            .industry-grid, .why-grid {
+                grid-template-columns: 1fr;
+            }
+            .roadmap-container {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+            .roadmap-line {
+                width: 2px;
+                height: 100%;
+                left: 16px;
+            }
+            .roadmap-node {
+                flex-direction: row;
+            }
+            .demo-desk {
+                grid-template-columns: 1fr;
+                height: 600px;
+            }
+            .demo-sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                height: 200px;
+            }
+            .demo-canvas {
+                height: 380px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY HEADER -->
+    <header>
+        <div class="logo-box">
+            <div class="logo-mark">X²</div>
+            <span class="logo-text">X2-iDoc</span>
+        </div>
+        <button class="header-cta" onclick="scrollToDemo()">Try The Demo</button>
+    </header>
+
+    <main>
+
+        <!-- SECTION 1: HERO -->
+        <section class="hero-section">
+            <div class="section-wrapper hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-headline">Engineering Doesn't End in College.</h1>
+                    <p class="hero-subheadline">
+                        Discover the world of Technical Publications—the career path most Mechanical and Aerospace students never learn about.
+                    </p>
+                    <button class="btn-primary" onclick="scrollToIndustry()">Explore the Industry</button>
+                </div>
+                
+                <!-- Background Video collage representation -->
+                <div class="video-collage">
+                    <div class="collage-tile">
+                        <!-- Wind Turbine drawing -->
+                        <svg viewBox="0 0 100 100"><line x1="50" y1="90" x2="50" y2="40" stroke="currentColor"/><circle cx="50" cy="40" r="4"/><path d="M 50 40 L 30 20 M 50 40 L 70 20 M 50 40 L 50 70" stroke="currentColor"/></svg>
+                        <span class="collage-label">WIND TURBINE</span>
+                    </div>
+                    <div class="collage-tile">
+                        <!-- CAD link wireframe -->
+                        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="15" stroke="currentColor"/><line x1="10" y1="50" x2="90" y2="50" stroke="currentColor"/><line x1="50" y1="10" x2="50" y2="90" stroke="currentColor"/></svg>
+                        <span class="collage-label">CAD DRAFTING</span>
+                    </div>
+                    <div class="collage-tile">
+                        <!-- Aircraft silhouette -->
+                        <svg viewBox="0 0 100 100"><path d="M 50 15 L 55 45 L 90 70 L 55 70 L 50 95 L 60 100 L 50 98 L 40 100 L 50 95 L 45 70 L 10 70 L 45 45 Z" stroke="currentColor"/></svg>
+                        <span class="collage-label">AEROSPACE MANUALS</span>
+                    </div>
+                    <div class="collage-tile">
+                        <!-- Assembly tool line -->
+                        <svg viewBox="0 0 100 100"><rect x="35" y="35" width="30" height="30" stroke="currentColor"/><circle cx="50" cy="50" r="6" stroke="currentColor"/></svg>
+                        <span class="collage-label">MANUFACTURING</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE PROBLEM -->
+        <section id="problem">
+            <div class="section-wrapper problem-content">
+                <div class="text-block">
+                    <h2 class="story-title" style="text-align: left; margin-bottom: 20px;">The Academic Disconnect.</h2>
+                    <p class="desc-block" style="font-size: 1.1rem; line-height: 1.6;">
+                        Colleges prepare you extensively for design, manufacturing, and analysis calculations. But they leave out the operational engine that runs heavy industry: **Technical Publications and Maintenance Documentation**. 
+                    </p>
+                    <p class="desc-block" style="font-size: 1.1rem; line-height: 1.6; margin-top: 15px; font-weight: 600;">
+                        That is the gap we are solving.
+                    </p>
+                </div>
+                
+                <div class="comparison-table">
+                    <div class="table-row col-title">
+                        <span>WHAT COLLEGE TEACHES</span>
+                        <span>STATUS</span>
+                    </div>
+                    <div class="table-row">
+                        <span class="table-label">Design & CAD drafting</span>
+                        <span class="icon-check">✓</span>
+                    </div>
+                    <div class="table-row">
+                        <span class="table-label">Manufacturing toolpaths</span>
+                        <span class="icon-check">✓</span>
+                    </div>
+                    <div class="table-row">
+                        <span class="table-label">Finite Element Analysis</span>
+                        <span class="icon-check">✓</span>
+                    </div>
+                    
+                    <div class="table-row col-title" style="border-top: 2px solid var(--border-color);">
+                        <span>WHAT THE INDUSTRY DEMANDS</span>
+                        <span>STATUS</span>
+                    </div>
+                    <div class="table-row">
+                        <span class="table-label">Technical Publications & Manuals</span>
+                        <span class="icon-cross">✗</span>
+                    </div>
+                    <div class="table-row">
+                        <span class="table-label">Interactive Electronic Technical Manuals (IETM)</span>
+                        <span class="icon-cross">✗</span>
+                    </div>
+                    <div class="table-row">
+                        <span class="table-label">S1000D / ATA Standards Compliance</span>
+                        <span class="icon-cross">✗</span>
+                    </div>
+                    <div class="table-row">
+                        <span class="table-label">Maintenance & Servicing Documentation</span>
+                        <span class="icon-cross">✗</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: INDUSTRY -->
+        <section id="industry">
+            <div class="section-wrapper">
+                <h2 class="section-title">Where do Technical Publications exist?</h2>
+                
+                <div class="industry-grid">
+                    <div class="industry-card">
+                        <div class="industry-icon">✈️</div>
+                        <span class="industry-name">Aerospace & Aviation</span>
+                    </div>
+                    <div class="industry-card">
+                        <div class="industry-icon">🛡️</div>
+                        <span class="industry-name">Defence Systems</span>
+                    </div>
+                    <div class="industry-card">
+                        <div class="industry-icon">🚗</div>
+                        <span class="industry-name">Automotive Systems</span>
+                    </div>
+                    <div class="industry-card">
+                        <div class="industry-icon">🩺</div>
+                        <span class="industry-name">Medical Devices</span>
+                    </div>
+                    <div class="industry-card">
+                        <div class="industry-icon">🚜</div>
+                        <span class="industry-name">Heavy Machinery</span>
+                    </div>
+                    <div class="industry-card">
+                        <div class="industry-icon">⚡</div>
+                        <span class="industry-name">Renewable Energy</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: LEARNING JOURNEY -->
+        <section>
+            <div class="section-wrapper">
+                <h2 class="section-title">The Engineering Operations Roadmap</h2>
+                
+                <div class="roadmap-container">
+                    <div class="roadmap-line"></div>
+                    <div class="roadmap-node active">
+                        <div class="node-dot"></div>
+                        <span class="node-label">Semester Basics</span>
+                    </div>
+                    <div class="roadmap-node active">
+                        <div class="node-dot"></div>
+                        <span class="node-label">Engineering Core</span>
+                    </div>
+                    <div class="roadmap-node active">
+                        <div class="node-dot"></div>
+                        <span class="node-label">Technical Publications</span>
+                    </div>
+                    <div class="roadmap-node">
+                        <div class="node-dot"></div>
+                        <span class="node-label">Standards (S1000D)</span>
+                    </div>
+                    <div class="roadmap-node">
+                        <div class="node-dot"></div>
+                        <span class="node-label">Operational Projects</span>
+                    </div>
+                    <div class="roadmap-node">
+                        <div class="node-dot"></div>
+                        <span class="node-label">EWS Portfolio</span>
+                    </div>
+                    <div class="roadmap-node">
+                        <div class="node-dot"></div>
+                        <span class="node-label">Internship</span>
+                    </div>
+                    <div class="roadmap-node">
+                        <div class="node-dot"></div>
+                        <span class="node-label">Core Job</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: PLATFORM DEMO -->
+        <section id="demo">
+            <div class="section-wrapper">
+                <h2 class="section-title" style="margin-bottom: 10px;">The X2-iDoc Interactive Workspace</h2>
+                <p class="desc-block" style="text-align: center; max-width: 580px; margin: 0 auto 30px auto;">
+                    Experience how structured manual instructions synchronize dynamically with interactive system schematics to verify diagnostic procedures:
+                </p>
+
+                <!-- Core Workspace interactive widget -->
+                <div class="demo-desk">
+                    
+                    <!-- Left Sidebar manual steps -->
+                    <div class="demo-sidebar">
+                        <span style="font-family: var(--font-display); font-weight: 700; font-size: 0.8rem; color: var(--text-lead);">AMM TASK CHECKLIST</span>
+                        <div class="manual-step-list">
+                            <div class="manual-step active" id="step-1">
+                                <div class="step-num">1</div>
+                                <span>Verify fluid level at inlet port TP-1</span>
+                            </div>
+                            <div class="manual-step" id="step-2">
+                                <div class="step-num">2</div>
+                                <span>Cycle Bypass Valve BV-2 to normal</span>
+                            </div>
+                            <div class="manual-step" id="step-3">
+                                <div class="step-num">3</div>
+                                <span>Verify outlet pressure reads nominal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Schematic canvas -->
+                    <div class="demo-canvas">
+                        
+                        <div style="position: absolute; top: 15px; right: 15px; font-family: monospace; font-size: 8px; color: var(--text-muted); background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 4px 8px; border-radius: 4px; z-index: 5;">
+                            TP-1: <span id="psi-value" style="color: var(--red-cross); font-weight: bold;">185 PSI</span>
+                        </div>
+
+                        <svg viewBox="0 0 120 90" style="width: 80%; height: 80%; fill: none; stroke: var(--text-muted); stroke-width: 1.2;">
+                            <!-- Active Flow lines (Error flow initially) -->
+                            <path class="error-flow" id="main-flow" d="M 20 50 H 100" />
+                            <path d="M 60 50 V 80 H 100" />
+
+                            <!-- TP-1 interactive snap target -->
+                            <g class="interactive-node" onclick="attachProbe()" style="cursor: pointer;">
+                                <circle cx="50" cy="50" r="10" stroke-dasharray="2 2" stroke="var(--primary-purple)" id="probe-ring" />
+                                <circle cx="50" cy="50" r="3" fill="var(--primary-purple)" />
+                                <text x="50" y="38" font-family="monospace" font-size="5" text-anchor="middle">TP-1</text>
+                            </g>
+
+                            <!-- Valve toggle -->
+                            <g class="interactive-node" id="valve-btn" onclick="cycleValve()" style="display: none; cursor: not-allowed;">
+                                <rect x="75" y="42" width="10" height="16" stroke="var(--red-cross)" stroke-width="1.2" id="valve-box" />
+                                <line x1="75" y1="42" x2="85" y2="58" id="valve-diag" />
+                                <text x="80" y="34" font-family="monospace" font-size="5" text-anchor="middle" id="valve-text">BV-2 (BLOCKED)</text>
+                            </g>
+                        </svg>
+
+                        <!-- Success modal overlay -->
+                        <div class="demo-success" id="demo-success">
+                            <span style="font-size: 2rem;">✓</span>
+                            <span style="font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--text-lead);">System Operational</span>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">Bypass verified. Low pressure nominal (82 PSI).</span>
+                            <button class="wire-btn-primary" style="padding: 8px 16px; font-size: 0.8rem; border-radius: 4px;" onclick="resetSim()">Reset Demo</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: WHY X2-IDOC -->
+        <section>
+            <div class="section-wrapper">
+                <h2 class="section-title">Why X2-iDoc?</h2>
+                
+                <div class="why-grid">
+                    <div class="why-card">
+                        <span class="why-emoji">🎓</span>
+                        <span class="why-title">Learn what colleges don't teach</span>
+                        <p class="why-desc">Bridge the gap between theoretical calculations and the structured documentation that runs real factories and aircraft fleets.</p>
+                    </div>
+                    <div class="why-card">
+                        <span class="why-emoji">🛠</span>
+                        <span class="why-title">Build industry-ready skills</span>
+                        <p class="why-desc">Develop diagnostic workflows, compliance tracking, and analytical logic by directly fixing simulated malfunctions.</p>
+                    </div>
+                    <div class="why-card">
+                        <span class="why-emoji">🚀</span>
+                        <span class="why-title">Start your TechPub career</span>
+                        <p class="why-desc">Technical Publications are the gateway to high-paying systems compliance, field servicing, and operations management roles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: CTA -->
+        <section class="cta-section" id="cta-block">
+            <div class="cta-content">
+                <h2 class="title-block" style="font-size: 2.2rem;">Ready to explore an engineering career beyond design?</h2>
+                <p class="desc-block" style="max-width: 480px; margin: 0 auto; color: var(--text-muted);">
+                    Stop sitting as an observer. Enter the active operations workspace and start troubleshooting.
+                </p>
+                <button class="btn-primary" style="padding: 16px 40px; margin-top: 15px;" onclick="alert('Early access registration initialized.')">Join Early Access</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- INTERACTIVE CONTROL SCRIPT -->
+    <script>
+        function scrollToDemo() {
+            document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToIndustry() {
+            document.getElementById('industry').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        let simState = 1;
+
+        function attachProbe() {
+            if (simState !== 1) return;
+            simState = 2;
+
+            // Mark step 1 done, step 2 active
+            document.getElementById('step-1').className = 'manual-step completed';
+            document.getElementById('step-1').querySelector('.step-num').innerText = '✓';
+            document.getElementById('step-2').className = 'manual-step active';
+
+            // Visual updates on probe target
+            document.getElementById('probe-ring').style.strokeDasharray = 'none';
+            document.getElementById('probe-ring').style.strokeWidth = '2px';
+
+            // Show Bypass Valve button
+            document.getElementById('valve-btn').style.display = 'block';
+            document.getElementById('valve-btn').style.cursor = 'pointer';
+        }
+
+        function cycleValve() {
+            if (simState !== 2) return;
+            simState = 3;
+
+            // Mark step 2 done, step 3 active
+            document.getElementById('step-2').className = 'manual-step completed';
+            document.getElementById('step-2').querySelector('.step-num').innerText = '✓';
+            document.getElementById('step-3').className = 'manual-step active';
+
+            // Change Valve elements to active/normal
+            document.getElementById('valve-box').setAttribute('stroke', 'var(--primary-purple)');
+            document.getElementById('valve-diag').style.display = 'none';
+            
+            const valveText = document.getElementById('valve-text');
+            valveText.innerText = 'BV-2 (NORMAL)';
+            valveText.style.fill = 'var(--primary-purple)';
+
+            // Telemetry psi reduction
+            document.getElementById('psi-value').innerText = '82 PSI';
+            document.getElementById('psi-value').style.color = 'var(--primary-purple)';
+
+            // Flow lines starts running smoothly
+            document.getElementById('main-flow').className.baseVal = 'active-flow';
+
+            // Success overlay checkoff
+            setTimeout(() => {
+                document.getElementById('step-3').className = 'manual-step completed';
+                document.getElementById('step-3').querySelector('.step-num').innerText = '✓';
+                
+                setTimeout(() => {
+                    document.getElementById('demo-success').classList.add('visible');
+                }, 600);
+            }, 1000);
+        }
+
+        function resetSim() {
+            simState = 1;
+
+            // Reset checklist steps
+            document.getElementById('step-1').className = 'manual-step active';
+            document.getElementById('step-1').querySelector('.step-num').innerText = '1';
+            
+            document.getElementById('step-2').className = 'manual-step';
+            document.getElementById('step-2').querySelector('.step-num').innerText = '2';
+            
+            document.getElementById('step-3').className = 'manual-step';
+            document.getElementById('step-3').querySelector('.step-num').innerText = '3';
+
+            // Reset Probe
+            document.getElementById('probe-ring').style.strokeDasharray = '2 2';
+            document.getElementById('probe-ring').style.strokeWidth = '1.2px';
+
+            // Reset Valve
+            document.getElementById('valve-btn').style.display = 'none';
+            document.getElementById('valve-btn').style.cursor = 'not-allowed';
+            document.getElementById('valve-box').setAttribute('stroke', 'var(--red-cross)');
+            document.getElementById('valve-diag').style.display = 'block';
+            
+            const valveText = document.getElementById('valve-text');
+            valveText.innerText = 'BV-2 (BLOCKED)';
+            valveText.style.fill = 'var(--red-cross)';
+
+            // Reset Psi & flow
+            document.getElementById('psi-value').innerText = '185 PSI';
+            document.getElementById('psi-value').style.color = 'var(--red-cross)';
+            document.getElementById('main-flow').className.baseVal = 'error-flow';
+
+            // Hide success overlay
+            document.getElementById('demo-success').classList.remove('visible');
+        }
+    </script>
+</body>
+</html>
